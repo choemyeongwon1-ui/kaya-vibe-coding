@@ -40,16 +40,29 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    linear-gradient(180deg, rgba(20, 12, 38, 0.45) 0%, rgba(20, 12, 38, 0.05) 30%, rgba(20, 12, 38, 0.1) 65%, rgba(20, 12, 38, 0.55) 100%),
-    url("assets/seoul-dusk.jpg") center center / cover no-repeat;
-  background-attachment: scroll, fixed;
+  background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font);
   font-size: 16px;
   line-height: 1.6;
   position: relative;
   overflow-x: hidden;
+}
+
+/* 배경 사진 — 채도·명도를 낮춰 은은하게 깔고, 본문 요소와는 분리해서 흐리지 않게 함 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(23, 27, 44, 0.55) 0%, rgba(23, 27, 44, 0.3) 40%, rgba(23, 27, 44, 0.6) 100%),
+    url("assets/seoul-dusk.jpg") center center / cover no-repeat;
+  filter: saturate(0.55) brightness(0.95);
+}
+
+@media (min-width: 601px) {
+  body::before { background-attachment: fixed; }
 }
 
 a { color: var(--color-primary-2); }
@@ -301,5 +314,4 @@ a { color: var(--color-primary-2); }
   .view { padding: var(--space-3); }
   .col-id, .col-date { display: none; }
   .col-author { width: 80px; }
-  body { background-attachment: scroll, scroll; }
 }
