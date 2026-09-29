@@ -1,24 +1,25 @@
-/* kaya 게시판 스타일 — 도시계획 블루프린트 컨셉의 밝고 세련된 테마
+/* kaya 게시판 스타일 — 노을 지는 도심 스카이라인 컨셉의 세련된 테마
    색상·간격은 아래 변수만 바꾸면 전체에 반영됩니다. */
 
 /* 1. 디자인 변수 ---------------------------------------------------------- */
 
 :root {
-  --color-bg: #f6f7fb;
+  --color-bg: #171b2c;
   --color-surface: #ffffff;
   --color-surface-solid: #ffffff;
   --color-text: #1a1d29;
   --color-muted: #6b7280;
   --color-border: #e7e9f0;
 
-  --color-primary: #6366f1;
-  --color-primary-2: #06b6d4;
-  --color-primary-hover: #4f46e5;
-  --color-danger: #e11d48;
-  --color-notice-bg: #eef2ff;
+  --color-primary: #364461;
+  --color-primary-2: #c99a54;
+  --color-primary-hover: #26314a;
+  --color-danger: #b3453c;
+  --color-notice-bg: rgba(255, 255, 255, 0.92);
 
   --gradient: linear-gradient(120deg, var(--color-primary), var(--color-primary-2));
-  --glow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  --gradient-header: linear-gradient(120deg, #f3c988, #9db3e8);
+  --glow: 0 0 0 3px rgba(54, 68, 97, 0.14);
 
   --radius: 14px;
   --radius-sm: 10px;
@@ -29,7 +30,7 @@
   --space-5: 40px;
   --max-width: 880px;
 
-  --font: "GangwonEdu Modu", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
 }
 
 /* 2. 기본 -------------------------------------------------------------- */
@@ -40,11 +41,9 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    url("assets/skyline.svg") repeat-x left bottom / auto 260px,
-    linear-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px) 0 0 / 40px 40px,
-    linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px) 0 0 / 40px 40px,
-    var(--color-bg);
-  background-attachment: fixed, scroll, scroll, scroll;
+    url("assets/skyline.svg") repeat-x left bottom / auto 320px,
+    linear-gradient(180deg, #12162a 0%, #2c2b45 45%, #55486a 75%, #7a5c52 100%);
+  background-attachment: fixed, fixed;
   color: var(--color-text);
   font-family: var(--font);
   font-size: 16px;
@@ -53,31 +52,31 @@ body {
   overflow-x: hidden;
 }
 
-/* 은은하게 떠 있는 파스텔 블롭 — 배경에 깊이감을 줍니다 */
+/* 은은한 도심 불빛 보케 — 배경 하늘에 깊이감을 줍니다 */
 body::before,
 body::after {
   content: "";
   position: fixed;
-  width: 480px;
-  height: 480px;
+  width: 520px;
+  height: 520px;
   border-radius: 50%;
-  filter: blur(120px);
+  filter: blur(130px);
   z-index: -1;
   pointer-events: none;
-  opacity: 0.25;
+  opacity: 0.28;
 }
 body::before {
-  top: -160px;
-  left: -120px;
-  background: var(--color-primary);
+  top: -180px;
+  left: -140px;
+  background: #e8b866;
 }
 body::after {
-  bottom: -160px;
-  right: -120px;
-  background: var(--color-primary-2);
+  top: 20%;
+  right: -160px;
+  background: #6f86c9;
 }
 
-a { color: var(--color-primary); }
+a { color: var(--color-primary-2); }
 
 [hidden] { display: none !important; }
 
@@ -87,10 +86,10 @@ a { color: var(--color-primary); }
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(15, 18, 32, 0.55);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding: var(--space-3);
 }
 
@@ -102,7 +101,7 @@ a { color: var(--color-primary); }
   font-weight: 700;
   letter-spacing: 0.3px;
   text-decoration: none;
-  background: var(--gradient);
+  background: var(--gradient-header);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -122,7 +121,7 @@ a { color: var(--color-primary); }
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: var(--space-4);
-  box-shadow: 0 12px 40px rgba(99, 102, 241, 0.08), 0 2px 8px rgba(17, 24, 39, 0.04);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.08);
   animation: rise 0.35s ease;
 }
 
@@ -158,9 +157,10 @@ a { color: var(--color-primary); }
   margin: 0 0 var(--space-3);
   padding: var(--space-2) var(--space-3);
   background: var(--color-notice-bg);
-  border-left: 3px solid var(--color-primary);
+  border-left: 3px solid var(--color-primary-2);
   border-radius: var(--radius-sm);
   color: var(--color-text);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
 /* 5. 버튼 -------------------------------------------------------------- */
@@ -180,9 +180,9 @@ a { color: var(--color-primary); }
 }
 
 .btn:hover {
-  border-color: rgba(99, 102, 241, 0.4);
+  border-color: rgba(54, 68, 97, 0.4);
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.12);
+  box-shadow: 0 6px 18px rgba(54, 68, 97, 0.14);
 }
 
 .btn-primary {
@@ -193,18 +193,18 @@ a { color: var(--color-primary); }
 }
 
 .btn-primary:hover {
-  box-shadow: 0 10px 26px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 10px 26px rgba(201, 154, 84, 0.35);
   transform: translateY(-2px);
 }
 
 .btn-danger {
   color: var(--color-danger);
-  border-color: rgba(225, 29, 72, 0.3);
+  border-color: rgba(179, 69, 60, 0.3);
 }
 
 .btn-danger:hover {
   border-color: var(--color-danger);
-  box-shadow: 0 6px 18px rgba(225, 29, 72, 0.15);
+  box-shadow: 0 6px 18px rgba(179, 69, 60, 0.15);
 }
 
 .actions {
@@ -229,7 +229,7 @@ a { color: var(--color-primary); }
 }
 
 .post-table th {
-  color: var(--color-primary);
+  color: var(--color-primary-2);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -241,7 +241,7 @@ a { color: var(--color-primary); }
 }
 
 .post-table tbody tr:hover {
-  background: rgba(99, 102, 241, 0.05);
+  background: rgba(201, 154, 84, 0.08);
 }
 
 .post-table td a {
@@ -251,7 +251,7 @@ a { color: var(--color-primary); }
   font-weight: 500;
 }
 
-.post-table td a:hover { color: var(--color-primary); }
+.post-table td a:hover { color: var(--color-primary-hover); }
 
 .col-id { width: 64px; color: var(--color-muted); font-variant-numeric: tabular-nums; }
 .col-author { width: 120px; color: var(--color-muted); }
@@ -309,7 +309,7 @@ a { color: var(--color-primary); }
 .post-form input:focus,
 .post-form textarea:focus {
   outline: none;
-  border-color: var(--color-primary);
+  border-color: var(--color-primary-2);
   box-shadow: var(--glow);
 }
 
@@ -325,5 +325,5 @@ a { color: var(--color-primary); }
   .view { padding: var(--space-3); }
   .col-id, .col-date { display: none; }
   .col-author { width: 80px; }
-  body::before, body::after { width: 260px; height: 260px; }
+  body::before, body::after { width: 280px; height: 280px; }
 }
