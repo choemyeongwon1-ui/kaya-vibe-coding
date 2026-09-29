@@ -1,20 +1,27 @@
-/* kaya 게시판 스타일
+/* kaya 게시판 스타일 — 도시계획 블루프린트 컨셉의 다크 테마
    색상·간격은 아래 변수만 바꾸면 전체에 반영됩니다. */
 
 /* 1. 디자인 변수 ---------------------------------------------------------- */
 
 :root {
-  --color-bg: #f6f7f9;
-  --color-surface: #ffffff;
-  --color-text: #1f2328;
-  --color-muted: #656d76;
-  --color-border: #d8dee4;
-  --color-primary: #1f6f5c;
-  --color-primary-hover: #185a4a;
-  --color-danger: #c62828;
-  --color-notice-bg: #e8f3ef;
+  --color-bg: #0a0e1a;
+  --color-surface: rgba(255, 255, 255, 0.045);
+  --color-surface-solid: #10162a;
+  --color-text: #e9edf7;
+  --color-muted: #8b93ab;
+  --color-border: rgba(255, 255, 255, 0.09);
 
-  --radius: 8px;
+  --color-primary: #22d3ee;
+  --color-primary-2: #a855f7;
+  --color-primary-hover: #67e8f9;
+  --color-danger: #fb7185;
+  --color-notice-bg: rgba(34, 211, 238, 0.09);
+
+  --gradient: linear-gradient(120deg, var(--color-primary), var(--color-primary-2));
+  --glow: 0 0 0 1px rgba(34, 211, 238, 0.25), 0 8px 30px rgba(34, 211, 238, 0.12);
+
+  --radius: 14px;
+  --radius-sm: 10px;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 16px;
@@ -31,11 +38,41 @@
 
 body {
   margin: 0;
-  background: var(--color-bg);
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 40px 40px,
+    var(--color-bg);
   color: var(--color-text);
   font-family: var(--font);
   font-size: 16px;
   line-height: 1.6;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* 은은하게 떠 있는 네온 블롭 — 배경에 깊이감을 줍니다 */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+}
+body::before {
+  top: -160px;
+  left: -120px;
+  background: var(--color-primary);
+}
+body::after {
+  bottom: -160px;
+  right: -120px;
+  background: var(--color-primary-2);
 }
 
 a { color: var(--color-primary); }
@@ -45,7 +82,12 @@ a { color: var(--color-primary); }
 /* 3. 상단 머리글 --------------------------------------------------------- */
 
 .site-header {
-  background: var(--color-surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(10, 14, 26, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--color-border);
   padding: var(--space-3);
 }
@@ -54,10 +96,15 @@ a { color: var(--color-primary); }
   display: block;
   max-width: var(--max-width);
   margin: 0 auto;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
-  color: var(--color-text);
+  letter-spacing: 0.3px;
   text-decoration: none;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  width: fit-content;
 }
 
 /* 4. 본문 영역 ----------------------------------------------------------- */
@@ -73,6 +120,15 @@ a { color: var(--color-primary); }
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: var(--space-4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  animation: rise 0.35s ease;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .page-title {
@@ -102,38 +158,53 @@ a { color: var(--color-primary); }
   margin: 0 0 var(--space-3);
   padding: var(--space-2) var(--space-3);
   background: var(--color-notice-bg);
-  border-left: 4px solid var(--color-primary);
-  border-radius: var(--radius);
+  border-left: 3px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
 }
 
 /* 5. 버튼 -------------------------------------------------------------- */
 
 .btn {
   display: inline-block;
-  padding: var(--space-2) var(--space-3);
+  padding: 10px 18px;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  background: var(--color-surface);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
   color: var(--color-text);
   font: inherit;
   font-size: 15px;
   text-decoration: none;
   cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.btn:hover { background: var(--color-bg); }
+.btn:hover {
+  border-color: rgba(34, 211, 238, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(34, 211, 238, 0.15);
+}
 
 .btn-primary {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: #fff;
+  background: var(--gradient);
+  border-color: transparent;
+  color: #04121a;
+  font-weight: 700;
 }
 
-.btn-primary:hover { background: var(--color-primary-hover); }
+.btn-primary:hover {
+  box-shadow: 0 10px 26px rgba(34, 211, 238, 0.35);
+  transform: translateY(-2px);
+}
 
 .btn-danger {
   color: var(--color-danger);
+  border-color: rgba(251, 113, 133, 0.4);
+}
+
+.btn-danger:hover {
   border-color: var(--color-danger);
+  box-shadow: 0 6px 18px rgba(251, 113, 133, 0.2);
 }
 
 .actions {
@@ -152,28 +223,39 @@ a { color: var(--color-primary); }
 
 .post-table th,
 .post-table td {
-  padding: var(--space-2) var(--space-2);
+  padding: 12px var(--space-2);
   border-bottom: 1px solid var(--color-border);
   text-align: left;
 }
 
 .post-table th {
-  color: var(--color-muted);
-  font-size: 14px;
-  font-weight: 600;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.post-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.post-table tbody tr:hover {
+  background: rgba(34, 211, 238, 0.06);
 }
 
 .post-table td a {
   color: var(--color-text);
   text-decoration: none;
   word-break: break-word;
+  font-weight: 500;
 }
 
-.post-table td a:hover { text-decoration: underline; }
+.post-table td a:hover { color: var(--color-primary); }
 
-.col-id { width: 64px; color: var(--color-muted); }
-.col-author { width: 120px; }
-.col-date { width: 150px; color: var(--color-muted); font-size: 14px; }
+.col-id { width: 64px; color: var(--color-muted); font-variant-numeric: tabular-nums; }
+.col-author { width: 120px; color: var(--color-muted); }
+.col-date { width: 150px; color: var(--color-muted); font-size: 14px; font-variant-numeric: tabular-nums; }
 
 .empty {
   margin: var(--space-4) 0;
@@ -203,21 +285,32 @@ a { color: var(--color-primary); }
   display: block;
   margin: var(--space-3) 0 var(--space-1);
   font-weight: 600;
+  color: var(--color-muted);
+  font-size: 14px;
 }
 
 .post-form input,
 .post-form textarea {
   width: 100%;
-  padding: var(--space-2);
+  padding: 10px 12px;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-text);
   font: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.post-form input::placeholder,
+.post-form textarea::placeholder {
+  color: var(--color-muted);
 }
 
 .post-form input:focus,
 .post-form textarea:focus {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 1px;
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: var(--glow);
 }
 
 .form-error {
@@ -232,4 +325,5 @@ a { color: var(--color-primary); }
   .view { padding: var(--space-3); }
   .col-id, .col-date { display: none; }
   .col-author { width: 80px; }
+  body::before, body::after { width: 260px; height: 260px; }
 }
