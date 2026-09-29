@@ -41,39 +41,15 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    url("assets/skyline.svg") repeat-x left bottom / auto 320px,
-    linear-gradient(180deg, #12162a 0%, #2c2b45 45%, #55486a 75%, #7a5c52 100%);
-  background-attachment: fixed, fixed;
+    linear-gradient(180deg, rgba(10, 12, 22, 0.72) 0%, rgba(20, 20, 34, 0.55) 40%, rgba(20, 20, 34, 0.72) 100%),
+    url("assets/seoul-dusk.jpg") center center / cover no-repeat;
+  background-attachment: scroll, fixed;
   color: var(--color-text);
   font-family: var(--font);
   font-size: 16px;
   line-height: 1.6;
   position: relative;
   overflow-x: hidden;
-}
-
-/* 은은한 도심 불빛 보케 — 배경 하늘에 깊이감을 줍니다 */
-body::before,
-body::after {
-  content: "";
-  position: fixed;
-  width: 520px;
-  height: 520px;
-  border-radius: 50%;
-  filter: blur(130px);
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.28;
-}
-body::before {
-  top: -180px;
-  left: -140px;
-  background: #e8b866;
-}
-body::after {
-  top: 20%;
-  right: -160px;
-  background: #6f86c9;
 }
 
 a { color: var(--color-primary-2); }
@@ -325,5 +301,5 @@ a { color: var(--color-primary-2); }
   .view { padding: var(--space-3); }
   .col-id, .col-date { display: none; }
   .col-author { width: 80px; }
-  body::before, body::after { width: 280px; height: 280px; }
+  body { background-attachment: scroll, scroll; }
 }
