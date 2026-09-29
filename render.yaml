@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: kaya-board
+    runtime: node
+    plan: free
+    branch: develop
+    rootDir: board/backend
+    buildCommand: echo "no build needed - built-in Node modules only"
+    startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: 20
