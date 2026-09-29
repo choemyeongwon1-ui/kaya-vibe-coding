@@ -40,7 +40,7 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    url("assets/skyline.svg") repeat-x left bottom / auto 220px,
+    url("assets/skyline.svg") repeat-x left bottom / auto 260px,
     linear-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px) 0 0 / 40px 40px,
     linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px) 0 0 / 40px 40px,
     var(--color-bg);
